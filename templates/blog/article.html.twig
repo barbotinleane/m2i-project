@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Notre Blog{% endblock %}
+
+{% block content %}
+
+    {% include 'partials/_article.html.twig' %}
+
+    <div class="mx-5">
+        <h2>Commentaires</h2>
+        {{ form_start(form) }}
+            
+        
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

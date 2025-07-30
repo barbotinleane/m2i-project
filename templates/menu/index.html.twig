@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Notre Menu{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">
+        <i class="fa-solid fa-utensils me-2"></i>Notre Menu
+    </h1>
+
+    <div class="row g-4">
+        {% for item in menu %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm h-100 border-dark">
+                    {% if item.image is defined %}
+                        <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title.fr }}">
+                    {% endif %}
+                    <div class="card-body bg-warning-subtle text-dark">
+                        <h5 class="card-title fw-bold text-dark">
+                            <i class="fa-solid fa-plate-wheat me-1"></i>{{ item.title.fr }}
+                        </h5>
+                        <p class="card-text">
+                            <i class="fa-solid fa-comment-dots me-1"></i>{{ item.description }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-dark text-white text-end">
+                        <strong>
+                            <i class="fa-solid fa-euro-sign me-1"></i>{{ item.price|number_format(2, ',', ' ') }}
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    Aucun élément de menu trouvé.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if views is defined %}
+        <div class="text-center mt-5">
+            <span class="badge bg-dark fs-5 px-4 py-2">
+                <i class="fa-solid fa-eye me-2"></i>{{ views }} vues
+            </span>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

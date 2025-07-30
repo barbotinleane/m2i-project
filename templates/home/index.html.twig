@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Section d'introduction avec une belle image -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary mb-4">Bienvenue dans notre restaurant !</h1>
+        <p class="lead text-muted mb-3">Un lieu où le goût rencontre la passion, et où chaque plat raconte une histoire.</p>
+        <img 
+            src="https://www.aubureau.fr/_next/image?url=https%3A%2F%2Fa.storyblok.com%2Ff%2F339491%2F1440x600%2Fa5867eddfc%2Fau-bureau-store-hero.png&w=3840&q=75" 
+            alt="Restaurant image"
+            class="img-fluid rounded-3 shadow-lg mb-4"
+        >
+        <p class="fs-4">Nous sommes ravis de vous accueillir dans notre établissement où l'élégance et la convivialité se rencontrent. Explorez notre site pour découvrir nos menus et nos dernières créations.</p>
+    </div>
+
+    <!-- Dernier article du blog -->
+    <div class="mb-5">
+        <h2 class="display-5 text-center mb-4">Découvrez notre dernier article</h2>
+        <div class="card bg-light shadow-lg">
+            <div class="card-body p-5">
+                {{ render(path('app_blog_post_last')) }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Liens vers le menu et blog -->
+    <div class="d-flex justify-content-center gap-3 mb-5">
+        <a href="{{ path('app_menu') }}" class="btn btn-lg btn-primary px-4 py-2 rounded-pill shadow-sm">Explorez notre menu</a>
+        <a href="{{ path('app_blog_index') }}" class="btn btn-lg btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">Lisez notre blog</a>
+    </div>
+
+    <!-- Section contact et appel à l'action -->
+    <div class="text-center mt-5">
+        <h3 class="display-6 text-muted mb-4">Vous avez des questions ?</h3>
+        <p class="fs-4 mb-4">N'hésitez pas à nous contacter, nous serons heureux de vous répondre et de vous guider dans votre expérience culinaire.</p>
+        <a href="mailto:contact@notresite.com" class="btn btn-lg btn-warning px-4 py-2 rounded-pill">Contactez-nous</a>
+    </div>
+
+</div>
+{% endblock %}

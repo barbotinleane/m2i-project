@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Réserver une table{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mb-4">Réserver une table</h1>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary mt-3">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-6">
+            <img src="https://static.actu.fr/uploads/2023/10/joce-hue-76actu-noshow-2-960x640.jpg" alt="" class="img-fluid rounded">
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<header>
+    {% include 'partials/_menu.html.twig' %}
+</header>
+
+<main class="flex-grow-1 container py-4">
+    <div id="flash-messages-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050; width: 300px;">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ 
+                    label == 'success' ? 'success' :
+                    label == 'error' ? 'danger' :
+                    label == 'warning' ? 'warning' :
+                    label == 'info' ? 'info' :
+                    'primary' }} flash-overlay fade show position-relative" role="alert" 
+                    style="background-color: rgba(255,255,255,0.85); box-shadow: 0 0 10px rgba(0,0,0,0.2); border-radius: 0.375rem; margin-bottom: 0.5rem;">
+                    {{ message }}
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="bg-dark text-center text-light py-5">
+    <div>&copy; {{ "now"|date("Y") }} Mon Restaurant</div>
+</footer>
+{% endblock %}
