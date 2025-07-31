@@ -10,8 +10,32 @@
         <h2>Commentaires</h2>
         {{ form_start(form) }}
             
-        
-        {{ form_end(form) }}
+        {{ form_end(form) }}      
+
+        {% for comment in comments %}
+            {% if comment.toBePublished is true %}
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comment.name }}</h5>
+                        <p class="card-text">{{ comment.message }}</p>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <!-- Lien de modification -->
+                            <a href="{{ path('app_comment_edit', { id: comment.id }) }}"
+                            class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-pen me-1"></i> Modifier
+                            </a>
+
+                            <!-- Lien direct de suppression (pas recommandé en production sans CSRF) -->
+                            <a href="{{ path('app_comment_delete', { id: comment.id }) }}"
+                            class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash me-1"></i> Supprimer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
 
     </div>
 

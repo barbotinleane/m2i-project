@@ -2,81 +2,83 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\ReservationRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    private string $customerName;
+    #[ORM\Column(length: 255)]
+    private ?string $customerName = null;
 
-    private string $email;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
-    #[Assert\GreaterThan(
-        value: "now",
-        message: "La réservation doit être faite pour une date future."
-    )]
-    private \DateTimeImmutable $reservationDate;
+    #[ORM\Column]
+    private ?\DateTime $reservationDate = null;
 
-    private int $numberOfGuests = 1;
+    #[ORM\Column]
+    private ?int $numberOfGuests = null;
 
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
 
-    public function __construct()
-    {
-    }
-
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCustomerName(): string
+    public function getCustomerName(): ?string
     {
         return $this->customerName;
     }
 
-    public function setCustomerName(string $customerName): self
+    public function setCustomerName(string $customerName): static
     {
         $this->customerName = $customerName;
+
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email): static
     {
         $this->email = $email;
+
         return $this;
     }
 
-    public function getReservationDate(): \DateImmutable
+    public function getReservationDate(): ?\DateTime
     {
         return $this->reservationDate;
     }
 
-    public function setReservationDate(\DateTimeImmutable $reservationDate): self
+    public function setReservationDate(\DateTime $reservationDate): static
     {
         $this->reservationDate = $reservationDate;
+
         return $this;
     }
 
-    public function getNumberOfGuests(): int
+    public function getNumberOfGuests(): ?int
     {
         return $this->numberOfGuests;
     }
 
-    public function setNumberOfGuests(int $numberOfGuests): self
+    public function setNumberOfGuests(int $numberOfGuests): static
     {
         $this->numberOfGuests = $numberOfGuests;
+
         return $this;
     }
 
@@ -85,9 +87,10 @@ class Reservation
         return $this->comment;
     }
 
-    public function setComment(?string $comment): self
+    public function setComment(string $comment): static
     {
         $this->comment = $comment;
+
         return $this;
     }
 }

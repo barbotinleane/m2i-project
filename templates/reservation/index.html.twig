@@ -5,16 +5,88 @@
 {% block content %}
 <div class="container my-5">
     <div class="row">
-        <div class="col-6">
-            <h1 class="mb-4">Réserver une table</h1>
+        <!-- Formulaire de réservation -->
+        <div class="col-lg-6 mb-5">
+            <h1 class="mb-4">
+                <i class="fa-solid fa-utensils me-2"></i>Réserver une table
+            </h1>
+
             {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button class="btn btn-primary mt-3">Envoyer</button>
+                <div class="mb-3">
+                    {{ form_label(form.customerName) }}
+                    {{ form_widget(form.customerName, { attr: {'class': 'form-control'} }) }}
+                    {{ form_errors(form.customerName) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, { attr: {'class': 'form-control'} }) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.reservationDate) }}
+                    {{ form_widget(form.reservationDate, { attr: {'class': 'form-control'} }) }}
+                    {{ form_errors(form.reservationDate) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.numberOfGuests) }}
+                    {{ form_widget(form.numberOfGuests, { attr: {'class': 'form-control'} }) }}
+                    {{ form_errors(form.numberOfGuests) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.comment) }}
+                    {{ form_widget(form.comment, { attr: {'class': 'form-control'} }) }}
+                    {{ form_errors(form.comment) }}
+                </div>
+                <button class="btn btn-primary mt-2">
+                    <i class="fa-solid fa-paper-plane me-1"></i> Envoyer
+                </button>
             {{ form_end(form) }}
         </div>
-        <div class="col-6">
-            <img src="https://static.actu.fr/uploads/2023/10/joce-hue-76actu-noshow-2-960x640.jpg" alt="" class="img-fluid rounded">
+
+        <!-- Illustration -->
+        <div class="col-lg-6 mb-5">
+            <img src="https://static.actu.fr/uploads/2023/10/joce-hue-76actu-noshow-2-960x640.jpg"
+                 alt="Image réservation"
+                 class="img-fluid rounded shadow-sm">
         </div>
+    </div>
+
+    <!-- Liste des réservations -->
+    <div class="mt-5">
+        <h2 class="mb-4">
+            <i class="fa-solid fa-calendar-check me-2"></i>Réservations enregistrées
+        </h2>
+
+        {% if reservations is empty %}
+            <div class="alert alert-info">
+                Aucune réservation enregistrée pour le moment.
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Convives</th>
+                            <th>Commentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservation in reservations %}
+                            <tr>
+                                <td>{{ reservation.customerName }}</td>
+                                <td>{{ reservation.email }}</td>
+                                <td>{{ reservation.reservationDate|date('d/m/Y H:i') }}</td>
+                                <td>{{ reservation.numberOfGuests }}</td>
+                                <td>{{ reservation.comment|nl2br }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

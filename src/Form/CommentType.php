@@ -23,7 +23,6 @@ class CommentType extends AbstractType
             ])
             ->add('email', TextType::class)
             ->add('message', TextareaType::class)
-            ->add('rating', NumberType::class)
             ->add('toBePublished', ChoiceType::class, [
                 'label' => 'Publier ce commentaire ?',
                 'choices' => [

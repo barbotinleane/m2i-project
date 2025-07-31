@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -16,20 +15,20 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 3, minMessage: 'Le nom doit avoir 3 caractères ou plus.')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Email(message: 'L\'adresse email "{{ value }}" n\'est pas une adresse email valide.')]
-    private ?string $email;
+    private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
     #[ORM\Column]
-    private ?int $rating = null;
+    private ?bool $toBePublished = null;
 
-    private bool $toBePublished;
+    #[ORM\ManyToOne(inversedBy: 'comment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Article $article = null;
 
     public function getId(): ?int
     {
@@ -48,16 +47,16 @@ class Comment
         return $this;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
     public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
     }
 
     public function getMessage(): ?string
@@ -72,19 +71,7 @@ class Comment
         return $this;
     }
 
-    public function getRating(): ?int
-    {
-        return $this->rating;
-    }
-
-    public function setRating(int $rating): static
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function isToBePublished(): bool
+    public function isToBePublished(): ?bool
     {
         return $this->toBePublished;
     }
@@ -92,6 +79,18 @@ class Comment
     public function setToBePublished(bool $toBePublished): static
     {
         $this->toBePublished = $toBePublished;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): static
+    {
+        $this->article = $article;
 
         return $this;
     }

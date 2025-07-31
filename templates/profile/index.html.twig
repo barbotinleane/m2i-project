@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="d-flex align-items-center mb-4">
+                <i class="fa-solid fa-user-circle text-primary fs-2 me-3"></i>
+                <h1 class="mb-0">Mon Profil</h1>
+            </div>
+
+            {% if user %}
+                <div class="d-flex flex-column flex-md-row align-items-center gap-4 bg-body-tertiary p-4 rounded-3">
+                    <!-- Image -->
+                    <img src="{{ user.image }}" alt="{{ user.name }}"
+                         class="rounded-circle shadow-sm"
+                         style="width: 130px; height: 130px; object-fit: cover;">
+
+                    <!-- Infos -->
+                    <div>
+                        <h3 class="mb-2">{{ user.name }}</h3>
+                        <p class="mb-0 text-muted">
+                            <i class="fa-solid fa-envelope me-2 text-secondary"></i>{{ user.email }}
+                        </p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-4 text-center">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    Aucune information utilisateur disponible.
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

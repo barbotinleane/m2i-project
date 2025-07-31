@@ -2,18 +2,13 @@
     <div class="card shadow-sm border-0 overflow-hidden">
         {% if article.image is defined %}
             <img src="{{ article.image }}" 
-                 alt="{{ article.title.fr ?? article.title.en }}" 
+                 alt="{{ article.title ?? article.title }}" 
                  class="card-img-top img-fluid object-fit-cover"
                  style="height: 300px;">
         {% endif %}
 
         <div class="card-body">
-            {% if article.title.fr is defined %}
-                <h1 class="card-title display-5 fw-bold mb-4 text-primary">{{ article.title.fr }}</h1>
-            {% else %}
-                <h1 class="card-title display-5 fw-bold mb-4 text-primary">{{ article.title.en }}</h1>
-            {% endif %}
-
+            <h1 class="card-title display-5 fw-bold mb-4 text-primary">{{ article.title }}</h1>
             <p class="card-text fs-5 lh-lg text-body">{{ article.content }}</p>
         </div>
     </div>
